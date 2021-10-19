@@ -28,6 +28,14 @@
   color: #61dafb;
 }
 
+.ListItem {
+  background-color: rgb(190, 163, 218);
+  border-radius: 2%;
+  border: 2px black solid;
+  margin: 2px;
+  max-width: 200px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
