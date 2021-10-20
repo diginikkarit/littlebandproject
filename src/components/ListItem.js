@@ -10,13 +10,10 @@ export const ListItem = (props) => {
         console.log("List item button clicked")
     }
 
-    
-      
-    let band = Band.FromJSon(props.band)
+    let band = props.band
     
     if(!band instanceof Band) alert ("Band classs error")
-    console.log("test : "+(props.band instanceof Band))
-
+    
     return (
         <div className="ListItem">
             id : {band.id}<br/>

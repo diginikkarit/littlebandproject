@@ -6,7 +6,10 @@ class Band{
         this.style = style;
         if(id===null){
             this.id = Band.GetId()
+        } else {
+            this.id = id
         }
+
     }
 
     GetAge (){
@@ -14,14 +17,14 @@ class Band{
         return currentYear - this.yearFounded
     }
 
+    static idCounter = 0;
     static GetId(){
         return ++this.idCounter;
     }
     
-    static idCounter = 0;
 
     static FromJSon(Json){
-       return new Band(Json.name, Json.yearFounded, Json.style)
+       return new Band(Json.name, Json.yearFounded, Json.style,Json.id)
     }
    
 }
