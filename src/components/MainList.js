@@ -1,66 +1,64 @@
 import React from 'react'
-import { ListItem } from './ListItem'
+import { CreateListItemFromBandClass,CreateListItemsFromBandArray } from './ListItem'
 import {Band} from './Class_Band'
 import {MUSIC_STYLES} from '../Constants/MUSIC_STYLES'
 import {bands} from './Globals'
 import {useEffect, useState} from 'react';
-import {ReactDOM} from 'react-dom'
 
 export const MainList = (props) => {
 
-    //this is filled in useEffect after rendering.
-    let listContainerElement;
-
-    const [items, setItems] = useState([])
+    const [listItems, setListItems] = useState([])
 
     const TestDATA = () => {
+        //creates test data and puts in the 'bands' array
            let band1 = new Band("Metallica",1980,MUSIC_STYLES.TRASH_METAL)
            let band2 = new Band("Anthrax",1981,MUSIC_STYLES.TRASH_METAL)
            let band3 = new Band("Hives",2003,MUSIC_STYLES.ROCK)
            let band4 = new Band("Slipknot",1999,MUSIC_STYLES.NU_METAL)
            bands.push(band1,band2,band3,band4)
-   }
-
-
-    const bandItemList = () => {
-        let items = []
-        bands.forEach(band => {
-
-            items.push(<ListItem band={band} key={"ListItem_id_" + band.id}/>)
-        });
-
-        return items
     }
 
-    const UpdateItems = () => {
-        let toItems = bandItemList();
-        setItems(toItems)
+    const AddListItem = (band) => {
+        //this might be used later. Called from listItem Editor
+        let element = CreateListItemFromBandClass(band,DeleteListItem)
+        bands.push(element)
+        UpdateListItemsFromBands()
     }
 
+    const DeleteListItem = (band) => {
+        //delete an object from 'bands' array with id.
+        console.log("DeleteListItem triggered with id : "+band.id)
+        //get index of the object in 'bands' array
+        let itemToDeleteIndex = bands.findIndex(x => x.id === band.id)
+        //remove the desired object
+        bands.splice(itemToDeleteIndex,1)
+        //update the itemList
+        UpdateListItemsFromBands()
+    }
 
-
+    const UpdateListItemsFromBands = () => {
+        //Creates an array of react elemens from band class objects in 'bands'
+        let bandElements = CreateListItemsFromBandArray(bands,DeleteListItem)
+        setListItems(bandElements)
+    }
+    
     useEffect(() => {
         // Runs ONCE after initial rendering
         // https://dmitripavlutin.com/react-useeffect-explanation/
-        // get hold of listContainer div
-        listContainerElement = document.getElementById("listContainer")
-        if(listContainerElement===null){
-            console.warn("ListContainer missing ?")
-        }
+        
+        //Add testData to bands array
         TestDATA();
-        UpdateItems()
-      }, []);
-
+        
+        UpdateListItemsFromBands()
+        //AddListItem(bands[0])
+    }, []);
 
     return (
         <div>
-            <h1> List </h1>
-            <div id="listContainer">
-            {items}
-
+            <div className="listContainer">
+            <h1> List Items</h1>
+            {listItems}
             </div>
         </div>
     )
-
-
 }

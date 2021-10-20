@@ -12,7 +12,7 @@ class Band{
 
     }
 
-    GetAge (){
+    GetAge(){
         let currentYear =  new Date().getFullYear()
         return currentYear - this.yearFounded
     }

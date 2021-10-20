@@ -1,18 +1,18 @@
 import React from 'react'
-import App from '../App'
-import { MUSIC_STYLES } from '../Constants/MUSIC_STYLES'
 import { Band } from './Class_Band'
-import {bands} from './Globals'
 
 export const ListItem = (props) => {
     
-    const ButtonClicked = () =>{
-        console.log("List item button clicked")
-    }
-
     let band = props.band
+    //Quick check that the band is an instance of the Band class
+    if(band instanceof Band) {
+        console.log(band.name + "is a member of Band class reports ListItem Component.")
+    }
     
-    if(!band instanceof Band) alert ("Band classs error")
+    const DeleteButtonClicked = () =>{
+        //call the function passed with deleteButton property
+        props.deleteButton(band);
+    }
     
     return (
         <div className="ListItem">
@@ -21,7 +21,24 @@ export const ListItem = (props) => {
             Style : {band.style}<br/>
             Age : {band.GetAge()}
             <br/>
-            <button onClick={ButtonClicked}>Delete</button>
+            <button onClick={DeleteButtonClicked}>Delete</button>
         </div>
     )
+}
+
+export const CreateListItemFromBandClass = (band, deleteButtonFunction) => {
+    //creates and return a react element from instance of Band class 'band'
+    //Give delete button function a defalt value.
+    if(deleteButtonFunction == null) deleteButtonFunction = ()=> {console.log("No delete button function given")}
+    let element = React.createElement(ListItem, {band:band, deleteButton:deleteButtonFunction, key:band.id})
+    return element
+}
+
+export const CreateListItemsFromBandArray = (bandArray,deleteButtonFunction) => {
+    //Creates a bunch of these fabulous elements
+    let items = []
+    bandArray.forEach(band => {
+        items.push(CreateListItemFromBandClass(band,deleteButtonFunction))
+    });
+    return items
 }
