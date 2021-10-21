@@ -38,8 +38,27 @@ export const MainList = (props) => {
 
     const UpdateListItemsFromBands = () => {
         //Creates an array of react elemens from band class objects in 'bands'
+        console.log("Bands at update ->")
+        console.table(bands)
         let bandElements = CreateListItemsFromBandArray(bands,DeleteListItem)
         setListItems(bandElements)
+    }
+
+    const ShowCurrentBandsArray = (objectArray) => {
+        //Helper funtion to show object in array when needed.
+        //will take any array        
+        let table
+        table = objectArray.map(element => {
+            let props = []
+            Object.keys(element).forEach(key => {
+                props.push(key+" : "+element[key]+"\n")
+            })
+            
+            return props+"\n"
+        })
+        let str = "Objects in array': \n\n"+table
+        //console.table(str);
+        alert(str)
     }
     
     useEffect(() => {
@@ -57,6 +76,8 @@ export const MainList = (props) => {
         <div>
             <div className="listContainer">
             <h1> List Items</h1>
+            <button onClick={() => ShowCurrentBandsArray(bands)}>Examine 'bands'</button>
+            <button onClick={UpdateListItemsFromBands}>Update from 'bands'</button>
             {listItems}
             </div>
         </div>
