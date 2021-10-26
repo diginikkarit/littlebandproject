@@ -1,7 +1,8 @@
 import './App.css';
-import { MainList } from './components/MainList';
+import { MainList } from './exporter';
 
 function App() {
+
   return (
     <div className="App">
       <MainList/>
@@ -9,4 +10,4 @@ function App() {
   );
 }
 
-export default App;
+export {App as default};

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Band } from './Class_Band'
+//import { Band } from './Class_Band'
 import {useState, useEffect} from 'react'
-import { MUSIC_STYLES } from '../Constants/MUSIC_STYLES'
+import { MUSIC_STYLES, Band } from '../exporter'
 
 export const ListItem = (props) => {
     

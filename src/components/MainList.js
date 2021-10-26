@@ -1,8 +1,6 @@
 import React from 'react'
 import { CreateListItemFromBandClass,CreateListItemsFromBandArray } from './ListItem'
-import {Band} from './Class_Band'
-import {MUSIC_STYLES} from '../Constants/MUSIC_STYLES'
-import {bands} from './Globals'
+import {MUSIC_STYLES, bands, Band} from '../exporter'
 import {useEffect, useState} from 'react';
 
 export const MainList = (props) => {

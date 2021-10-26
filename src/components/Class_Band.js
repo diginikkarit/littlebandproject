@@ -1,4 +1,4 @@
-import { MUSIC_STYLES } from "../Constants/MUSIC_STYLES"
+import { MUSIC_STYLES } from "../exporter"
 class Band{
     constructor(name,yearFounded,style = MUSIC_STYLES.DEFAULT_STYLE,id=null){
         this.name = name;
