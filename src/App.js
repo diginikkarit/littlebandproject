@@ -1,11 +1,13 @@
 import './App.css';
-import { MainList } from './exporter';
+import { DataManager, MainList } from './exporter';
 
 function App() {
 
+  DataManager.setTestData()
+
   return (
     <div className="App">
-      <MainList/>
+      <MainList UpdateFunction={DataManager.GetAllBands}/>
     </div>
   );
 }
