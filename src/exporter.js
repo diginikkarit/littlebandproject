@@ -8,4 +8,6 @@ export {MUSIC_STYLES} from './constants/MUSIC_STYLES'
 export {bands} from './components/Globals'
 //Band class
 export {Band} from './components/Class_Band'
+//Datamanager!
+export {DataManager} from './DataManager'
 

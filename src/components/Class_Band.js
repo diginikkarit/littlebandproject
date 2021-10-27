@@ -26,8 +26,6 @@ class Band{
     static FromJSon(Json){
        return new Band(Json.name, Json.yearFounded, Json.style,Json.id)
     }
-   
 }
-
 
 export {Band}

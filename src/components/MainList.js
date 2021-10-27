@@ -1,51 +1,42 @@
 import React from 'react'
 import { CreateListItemFromBandClass,CreateListItemsFromBandArray } from './ListItem'
-import {MUSIC_STYLES, bands, Band} from '../exporter'
+import {MUSIC_STYLES, bands, Band, DataManager} from '../exporter'
 import {useEffect, useState} from 'react';
 
 export const MainList = (props) => {
-
+    
     const [listItems, setListItems] = useState([])
-
-    const TestDATA = () => {
-        //creates test data and puts in the 'bands' array
-           let band1 = new Band("Metallica",1980,MUSIC_STYLES.TRASH_METAL)
-           let band2 = new Band("Anthrax",1981,MUSIC_STYLES.TRASH_METAL)
-           let band3 = new Band("Hives",2003,MUSIC_STYLES.ROCK)
-           let band4 = new Band("Slipknot",1999,MUSIC_STYLES.NU_METAL)
-           bands.push(band1,band2,band3,band4)
+    
+    const UpdateList = () => {
+        //Creates an array of react elemens from band class objects
+        //Calls given function for updating. 
+        //This can be any function, that returs array of bands.
+        let bands = props.UpdateFunction()
+        console.log("--Updatefuntion called, returned")
+        //console.table(bands)
+        let bandElements = CreateListItemsFromBandArray(bands,DeleteListItem)
+        setListItems(bandElements)
+    }
+    
+    const DeleteListItem = (band) => {
+        //console.log("DeleteListItem triggered with id : "+band.id)
+        //remove the desired object with DataManager
+        DataManager.RemoveBandWithID(band.id)
+        //update the itemList
+        UpdateList()
     }
 
     const AddListItem = (band) => {
         //this might be used later. Called from listItem Editor
         let element = CreateListItemFromBandClass(band,DeleteListItem)
         bands.push(element)
-        UpdateListItemsFromBands()
-    }
-
-    const DeleteListItem = (band) => {
-        //delete an object from 'bands' array with id.
-        console.log("DeleteListItem triggered with id : "+band.id)
-        //get index of the object in 'bands' array
-        let itemToDeleteIndex = bands.findIndex(x => x.id === band.id)
-        //remove the desired object
-        bands.splice(itemToDeleteIndex,1)
-        //update the itemList
-        UpdateListItemsFromBands()
-    }
-
-    const UpdateListItemsFromBands = () => {
-        //Creates an array of react elemens from band class objects in 'bands'
-        console.log("Bands at update ->")
-        console.table(bands)
-        let bandElements = CreateListItemsFromBandArray(bands,DeleteListItem)
-        setListItems(bandElements)
+        UpdateList()
     }
 
     const ShowCurrentBandsArray = (objectArray) => {
         //Helper funtion to show object in array when needed.
         //will take any array        
-        let table
+        let table = DataManager.GetAllBands()
         table = objectArray.map(element => {
             let props = []
             Object.keys(element).forEach(key => {
@@ -62,12 +53,8 @@ export const MainList = (props) => {
     useEffect(() => {
         // Runs ONCE after initial rendering
         // https://dmitripavlutin.com/react-useeffect-explanation/
-        
-        //Add testData to bands array
-        TestDATA();
-        
-        UpdateListItemsFromBands()
-        //AddListItem(bands[0])
+        // lets update the list for the first time
+        UpdateList()
     }, []);
 
     return (
@@ -75,7 +62,7 @@ export const MainList = (props) => {
             <div className="listContainer">
             <h1> List Items</h1>
             <button onClick={() => ShowCurrentBandsArray(bands)}>Examine 'bands'</button>
-            <button onClick={UpdateListItemsFromBands}>Update from 'bands'</button>
+            <button onClick={UpdateList}>Update from 'bands'</button>
             {listItems}
             </div>
         </div>
