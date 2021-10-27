@@ -9,7 +9,6 @@ class Band{
         } else {
             this.id = id
         }
-
     }
 
     GetAge(){

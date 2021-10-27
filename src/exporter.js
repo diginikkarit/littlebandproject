@@ -2,6 +2,9 @@
 //Note, that there is only export expression
 //MainList component
 export { MainList } from './components/MainList';
+
+//ListItem
+export {ListItem} from './components/ListItem'
 //MUSIC_STYLE enum
 export {MUSIC_STYLES} from './constants/MUSIC_STYLES'
 //Global array for band data

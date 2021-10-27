@@ -63,7 +63,9 @@ export const MainList = (props) => {
             <h1> List Items</h1>
             <button onClick={() => ShowCurrentBandsArray(bands)}>Examine 'bands'</button>
             <button onClick={UpdateList}>Update from 'bands'</button>
+            <div className="">
             {listItems}
+            </div>
             </div>
         </div>
     )
