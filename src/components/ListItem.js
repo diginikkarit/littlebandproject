@@ -1,23 +1,27 @@
 import React from 'react'
-import { Band } from './Class_Band'
+//import { Band } from './Class_Band'
 import {useState, useEffect} from 'react'
-import { MUSIC_STYLES } from '../Constants/MUSIC_STYLES'
+import { MUSIC_STYLES, Band } from '../exporter'
 
 export const ListItem = (props) => {
     
     //this is link to the band class object in 'bands'
     let band = props.band
-
+    
     //states needed for updating values
-    //these are not directy connected to the 'bands' objects
     const [yearFounded, setYearFounded] = useState(band.yearFounded)
     const [name, setName] = useState(band.name)
     const [style, setStyle] = useState(band.style)
+    //these are not directy connected to the 'bands' objects
     //Quick check that the band is an instance of the Band class
     if(band instanceof Band) {
         console.log(band.name + " item updated")
     }
     
+    const DeleteButton = () => {
+       return <button onClick={DeleteButtonClicked}>Delete</button>
+    } 
+
     const DeleteButtonClicked = () =>{
         //call the function passed with deleteButton property
         props.deleteButton(band);
@@ -38,7 +42,6 @@ export const ListItem = (props) => {
         
         //modify the actual value in 
         band[propertyName] = inputValue
-        
         setFunction(band[propertyName])
     }
     
@@ -70,23 +73,41 @@ export const ListItem = (props) => {
 
     
     return (
-        <div className="ListItem">
-            id : {band.id}<br/>
-            Name : <input type="input" id={"name_input_"+band.id} onChange={(e) => InputFieldValueChanged(e,"name",setName)} value={name} ></input><br/> 
-            Style :
-            <select onChange={(e) => DropDownHandler(e)} defaultValue={band.style}>
-                {musicStyleDropdownElements}
-            </select>
+        <div className="ListItem col-auto">
+            <table className="ListItemTable">
+            <tr>
+                <td> id:</td><td>{band.id}</td>
+            </tr>
+            <tr>
+                <td>Name:</td><td><input type="input" id={"name_input_"+band.id} onChange={(e) => InputFieldValueChanged(e,"name",setName)} value={name} ></input></td>
+            </tr>   
+            <tr>
+                <td> Style:</td>
+                <td>
+                    <select onChange={(e) => DropDownHandler(e)} defaultValue={band.style}>{musicStyleDropdownElements}</select>
+                </td>
+            </tr>
+            <tr>
+                <td> Year Founded:</td>
+                <td>
+                    {/* Calling ValueChanged with eventArgs and custom parameters */}
+                    <input type="input" id={"yearFounded_input_"+band.id} onChange={(eventArgs) => InputFieldValueChanged(eventArgs,"yearFounded",setYearFounded)} value={yearFounded} >
+                    </input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                Age :    
+                </td>
+                <td>
+                {band.GetAge()}    
+                </td>
+            </tr>           
             <br/>
-            {/* Calling ValueChanged with eventArgs and custom parameters */}
-            Year Founded :<input type="input" id={"yearFounded_input_"+band.id} onChange={(eventArgs) => InputFieldValueChanged(eventArgs,"yearFounded",setYearFounded)} value={yearFounded} ></input><br/>
-            Age : {band.GetAge()}
-            <br/>
-            <button onClick={DeleteButtonClicked}>Delete</button>
+            </table>
+            {(props.deleteButton != undefined) ? DeleteButton(): ""}
         </div>
     )
-
-    
 }
 
 export const CreateListItemFromBandClass = (band, deleteButtonFunction) => {

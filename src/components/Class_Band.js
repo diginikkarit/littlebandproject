@@ -1,4 +1,4 @@
-import { MUSIC_STYLES } from "../Constants/MUSIC_STYLES"
+import { MUSIC_STYLES } from "../exporter"
 class Band{
     constructor(name,yearFounded,style = MUSIC_STYLES.DEFAULT_STYLE,id=null){
         this.name = name;
@@ -9,7 +9,6 @@ class Band{
         } else {
             this.id = id
         }
-
     }
 
     GetAge(){
@@ -27,8 +26,6 @@ class Band{
     static FromJSon(Json){
        return new Band(Json.name, Json.yearFounded, Json.style,Json.id)
     }
-   
 }
-
 
 export {Band}

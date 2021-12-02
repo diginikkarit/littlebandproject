@@ -33,7 +33,12 @@
   border-radius: 2%;
   border: 2px black solid;
   margin: 2px;
-  max-width: 200px;
+  /* max-width: 500px; */
+}
+
+.ListItemTable {
+  width: 100%;
+  background-color: deepskyblue;
 }
 
 .listContainer{
@@ -41,8 +46,7 @@
   border-radius: 2%;
   border: 2px black solid;
   margin: 2px;
-  max-width: 200px;
-
+  max-width: 400px;
 }
 
 @keyframes App-logo-spin {
