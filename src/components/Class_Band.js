@@ -19,6 +19,7 @@ class Band{
 
     static idCounter = 0;
     static GetId(){
+        //testing
         return ++this.idCounter;
     }
     

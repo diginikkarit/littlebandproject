@@ -15,7 +15,7 @@ export const ListItem = (props) => {
     const [style, setStyle] = useState(band.style)
     //Quick check that the band is an instance of the Band class
     if(band instanceof Band) {
-        console.log(band.name + "is a member of Band class reports ListItem Component.")
+        console.log(band.name + " item updated")
     }
     
     const DeleteButtonClicked = () =>{
